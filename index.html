@@ -8,33 +8,35 @@
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <div class="d-sm-flex justify-content-around">
-        <div id="game" class="m-4">
-            <div class="d-flex unit-top text-center">
-                <div class="unit unit-left"></div>
-                <div class="unit unit-center"></div>
-                <div class="unit unit-right"></div>
+    <div class="container-fluid d-flex justify-content-center">
+        <div class="d-sm-flex justify-content-center">
+            <div id="game" class="m-4 ms-5">
+                <div class="d-flex unit-top text-center">
+                    <div class="unit unit-left"></div>
+                    <div class="unit unit-center"></div>
+                    <div class="unit unit-right"></div>
+                </div>
+                <div class="d-flex unit-middle text-center">
+                    <div class="unit unit-left"></div>
+                    <div class="unit unit-center"></div>
+                    <div class="unit unit-right"></div>
+                </div>
+                <div class="d-flex unit-down text-center">
+                    <div class="unit unit-left"></div>
+                    <div class="unit unit-center"></div>
+                    <div class="unit unit-right"></div>
+                </div>
             </div>
-            <div class="d-flex unit-middle text-center">
-                <div class="unit unit-left"></div>
-                <div class="unit unit-center"></div>
-                <div class="unit unit-right"></div>
+            <div id="win" class="m-4 text-center" hidden>
+                <div id="message" class="my-2"></div>
+                <button id="restart" class="btn btn-primary mt-4">Restart</button>
             </div>
-            <div class="d-flex unit-down text-center">
-                <div class="unit unit-left"></div>
-                <div class="unit unit-center"></div>
-                <div class="unit unit-right"></div>
+            <div class="col align-self-center ms-5">
+                <div id="player" class="text-center col-9 my-5">Player <span id="playerRound">1</span> round</div>
             </div>
         </div>
-        <div id="win" class="m-4 text-center" hidden>
-            <div id="message" class="my-2"></div>
-            <button id="restart" class="btn btn-primary mt-4">Restart</button>
-        </div>
-        <div class="col align-self-center ms-5">
-            <div id="player" class="text-center col-9 my-5">Player <span id="playerRound">1</span> round</div>
-        </div>
+        <div class="text-center mb-5 position-fixed bottom-0 text-primary fw-bold fs-1">Player 1 will put 0, player 2 will put X.</div>
     </div>
-    <div class="text-center text-primary fw-bold">Player 1 will put 0, player 2 will put X.</div>
     <script src="./index.js"></script>
 </body>
 </html>

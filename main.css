@@ -8,19 +8,13 @@ body {
 }
 
 .game {
-    /* top: 10vh;
-    left: 10vh; */
-    /* top: 20vh;
-    left: 20vw;
-    width: 500px;
-    height: 500px; */
     background-color: #3c1010;
 }
 
 .unit {
     /* border: #1d0747 solid; */
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     /* background-color: #9f1111; */
 }
 
@@ -47,7 +41,7 @@ body {
 
 .unit { 
     color: aliceblue;
-    font-size: 50px;
+    font-size: 75px;
     font-weight: bold;
 }
 

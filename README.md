@@ -9,3 +9,5 @@ To display appropriate messages on the page depending on the result of the game.
 Also, at the end of each game users will be able to start a new game.
 
 ```
+
+Check the game [here](https://superlative-sunflower-63d5d4.netlify.app/).
