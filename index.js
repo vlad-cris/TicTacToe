@@ -6,93 +6,75 @@ let playerRound = document.getElementById("playerRound");
 let winElement = document.getElementById("win");
 let units = document.getElementsByClassName("unit");
 
-const player = ["0", "X"];
+const playerValues = ["0", "X"];
 let gameCount = 0;
 let playerCount = 1;
+let matrixValues = [["", "", ""], ["", "", ""], ["", "", ""]];
 
-// -- game functions
+// game function at click event
 window.addEventListener("click", function (e) { 
     if (e.target.classList.contains("unit") && e.target.innerText == "") {
+        let id = e.target.id;
         gameCount++;
         playerRound.innerText = playerCount + 1;
         e.target.innerText = getPlayerText();
-        checkGame();
+        matrixValues[Math.floor(id / 3)][id % 3] = playerValues[playerCount];
+        checkWinner();
     }
     if (e.target.id == "restart") {
         resetGame();
     }
 });
 
+// get the player value
 function getPlayerText() {
-    playerCount = ++playerCount % player.length;
-    return player[playerCount];
+    playerCount = ++playerCount % playerValues.length;
+    return playerValues[playerCount];
 };
 
-//create a list of value in board
-function createListOfInput() {
-    let newList = new Array();
-    let index = 0;
-    for (let i = 0; i < 3; i++) {
-        let rowList = [];
-        for (let j = 0; j < 3; j++) {
-            if(units[index].innerText) {
-                rowList.push(units[index].innerText);
-            } else {
-                rowList.push("");
-            }
-            index++;
+// check for a winner
+function checkWinner() {
+    if (gameCount > 4) {
+        if (gameCount == 9) { 
+            showWinner("Lose");
         }
-        newList.push(rowList);
+        checkRows();
+        checkColumns();
+        checkMainDiagonal();
+        checkSecondaryDiagonal();
     }
-    return newList;
 };
 
-function checkGame() {
-    let inputList = createListOfInput(); //this will have a list of value in board
-    checkWinner(inputList);
-};
-
-// check the board for a winner
-function checkWinner(inputList) {
-    if (gameCount == 9) { 
-        showWinner("Lose");
-    }
-    checkRows(inputList);
-    checkColumns(inputList);
-    checkMainDiagonal(inputList);
-    checkSecondaryDiagonal(inputList);
-};
-
-function checkRows(inputList) {
+function checkRows() {
     for (let i = 0; i < 3; i++) {
-        if (inputList[i][0] == inputList[i][1] && inputList[i][1] == inputList[i][2] && 
-            inputList[i][0] != "") {
+        if (matrixValues[i][0] == matrixValues[i][1] && matrixValues[i][1] == matrixValues[i][2] && 
+            matrixValues[i][0] != "") {
             showWinner();
             break;
         }
     }
 };
 
-function checkColumns(inputList) {
+function checkColumns() {
     for (let i = 0; i < 3; i++) {
-        if (inputList[0][i] == inputList[1][i] && inputList[1][i] == inputList[2][i] && 
-            inputList[0][i] != "") {
+        if (matrixValues[0][i] == matrixValues[1][i] && matrixValues[1][i] == matrixValues[2][i] && 
+            matrixValues[0][i] != "") {
             showWinner();
             break;
         }
     }
 };
 
-function checkMainDiagonal(inputList) {
-    if (inputList[0][0] == inputList[1][1] && inputList[1][1] == inputList[2][2] && 
-        inputList[0][0] != "") {
+function checkMainDiagonal() {
+    if (matrixValues[0][0] == matrixValues[1][1] && matrixValues[1][1] == matrixValues[2][2] && 
+        matrixValues[0][0] != "") {
         showWinner();
     }
 };
 
-function checkSecondaryDiagonal(inputList) {
-    if (inputList[0][2] == inputList[1][1] && inputList[2][0] == inputList[1][1] && 
-        inputList[0][2] != "") {
+function checkSecondaryDiagonal() {
+    if (matrixValues[0][2] == matrixValues[1][1] && matrixValues[2][0] == matrixValues[1][1] && 
+        matrixValues[0][2] != "") {
         showWinner();
     }
 };
@@ -103,7 +85,7 @@ function showGameBoard() {
     gameElement.removeAttribute("hidden");
 };
 
-//show Winner
+//show Winner message
 function showWinner(message = "win") {
     gameElement.setAttribute("hidden", "");
     winElement.removeAttribute("hidden");
@@ -111,18 +93,28 @@ function showWinner(message = "win") {
     addMessage(message);
 };
 
+// reset game board, matrix, gameCount, playerCount
 function resetGame() {
     gameCount = 0;
     playerCount = 1;
     playerRound.innerText = playerCount;
     showGameBoard();
     resetGameBoard();
+    resetMatrixValues();
 };
 
 function resetGameBoard() {
     for (index in units) {
         units[index].innerText = "";
     } 
+};
+
+function resetMatrixValues() {
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++){
+            matrixValues[i][j] = "";
+        }
+    }
 };
 
 function addMessage(message) {
