@@ -9,7 +9,7 @@ let units = document.getElementsByClassName("unit");
 const playerValues = ["0", "X"];
 let gameCount = 0;
 let playerCount = 1;
-let matrixValues = [["", "", ""], ["", "", ""], ["", "", ""]];
+let boardValues = [["", "", ""], ["", "", ""], ["", "", ""]];
 
 // game function at click event
 window.addEventListener("click", function (e) { 
@@ -18,7 +18,7 @@ window.addEventListener("click", function (e) {
         gameCount++;
         playerRound.innerText = playerCount + 1;
         e.target.innerText = getPlayerText();
-        matrixValues[Math.floor(id / 3)][id % 3] = playerValues[playerCount];
+        boardValues[Math.floor(id / 3)][id % 3] = playerValues[playerCount];
         checkWinner();
     }
     if (e.target.id == "restart") {
@@ -47,8 +47,8 @@ function checkWinner() {
 
 function checkRows() {
     for (let i = 0; i < 3; i++) {
-        if (matrixValues[i][0] == matrixValues[i][1] && matrixValues[i][1] == matrixValues[i][2] && 
-            matrixValues[i][0] != "") {
+        if (boardValues[i][0] == boardValues[i][1] && boardValues[i][1] == boardValues[i][2] && 
+            boardValues[i][0] != "") {
             showWinner();
             break;
         }
@@ -57,8 +57,8 @@ function checkRows() {
 
 function checkColumns() {
     for (let i = 0; i < 3; i++) {
-        if (matrixValues[0][i] == matrixValues[1][i] && matrixValues[1][i] == matrixValues[2][i] && 
-            matrixValues[0][i] != "") {
+        if (boardValues[0][i] == boardValues[1][i] && boardValues[1][i] == boardValues[2][i] && 
+            boardValues[0][i] != "") {
             showWinner();
             break;
         }
@@ -66,15 +66,15 @@ function checkColumns() {
 };
 
 function checkMainDiagonal() {
-    if (matrixValues[0][0] == matrixValues[1][1] && matrixValues[1][1] == matrixValues[2][2] && 
-        matrixValues[0][0] != "") {
+    if (boardValues[0][0] == boardValues[1][1] && boardValues[1][1] == boardValues[2][2] && 
+        boardValues[0][0] != "") {
         showWinner();
     }
 };
 
 function checkSecondaryDiagonal() {
-    if (matrixValues[0][2] == matrixValues[1][1] && matrixValues[2][0] == matrixValues[1][1] && 
-        matrixValues[0][2] != "") {
+    if (boardValues[0][2] == boardValues[1][1] && boardValues[2][0] == boardValues[1][1] && 
+        boardValues[0][2] != "") {
         showWinner();
     }
 };
@@ -100,7 +100,7 @@ function resetGame() {
     playerRound.innerText = playerCount;
     showGameBoard();
     resetGameBoard();
-    resetMatrixValues();
+    resetboardValues();
 };
 
 function resetGameBoard() {
@@ -109,10 +109,10 @@ function resetGameBoard() {
     } 
 };
 
-function resetMatrixValues() {
+function resetboardValues() {
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++){
-            matrixValues[i][j] = "";
+            boardValues[i][j] = "";
         }
     }
 };
