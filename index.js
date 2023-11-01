@@ -12,19 +12,13 @@ let playerCount = 1;
 let boardValues = [["", "", ""], ["", "", ""], ["", "", ""]];
 
 // game function at click event
-window.addEventListener("click", function (e) { 
-    if (e.target.classList.contains("unit") && e.target.innerText == "") {
-        let id = e.target.id;
-        gameCount++;
-        playerRound.innerText = playerCount + 1;
-        e.target.innerText = getPlayerText();
-        boardValues[Math.floor(id / 3)][id % 3] = playerValues[playerCount];
-        checkWinner();
-    }
-    if (e.target.id == "restart") {
-        resetGame();
-    }
-});
+function putPlayerValue(id) {
+    gameCount++;
+    playerRound.innerText = playerCount + 1;
+    document.getElementById(id).innerText = getPlayerText();
+    boardValues[Math.floor(id / 3)][id % 3] = playerValues[playerCount];
+    checkWinner();
+};
 
 // get the player value
 function getPlayerText() {
@@ -36,7 +30,7 @@ function getPlayerText() {
 function checkWinner() {
     if (gameCount > 4) {
         if (gameCount == 9) { 
-            showWinner("Lose");
+            showWinner();
         }
         checkRows();
         checkColumns();
@@ -86,11 +80,11 @@ function showGameBoard() {
 };
 
 //show Winner message
-function showWinner(message = "win") {
+function showWinner() {
     gameElement.setAttribute("hidden", "");
     winElement.removeAttribute("hidden");
     playerElement.setAttribute("hidden", "");
-    addMessage(message);
+    addMessage(`The player <span class="fw-bold">${playerCount + 1}</span> have win!`);
 };
 
 // reset game board, matrix, gameCount, playerCount
@@ -117,10 +111,6 @@ function resetboardValues() {
     }
 };
 
-function addMessage(message) {
-    if (message == "win") {
-        messageElement.innerHTML = `<h2 class="text-center text-success">The player <span class="fw-bold">${playerCount + 1}</span> have win!`;
-    } else {
-        messageElement.innerHTML = `<h2 class="text-center text-success">Nobody have win!`;
-    }
+function addMessage(message = "Nobody have win!") {
+    messageElement.innerHTML = message;
 };
